@@ -12,6 +12,7 @@
 #include "PluginProcessor.h"
 #include "UI/AdsrComponent.h"
 #include "UI/OscComponent.h"
+#include "UI/ChorusComponent.h"
 
 //==============================================================================
 /**
@@ -37,6 +38,7 @@ private:
     OscComponent osc1;
     OscComponent osc2;
     AdsrComponent adsr;
+    ChorusComponent chorus;
 
 
 

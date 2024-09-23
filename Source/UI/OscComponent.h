@@ -24,8 +24,11 @@ public:
 
     void paint(juce::Graphics&) override;
     void resized() override;
+    void setSliderParams(juce::Slider& slider);
 
 private:
+
+
     juce::ComboBox oscSelector;
     juce::Slider gainSlider;
     juce::Slider pitchSlider;

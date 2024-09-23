@@ -179,6 +179,15 @@ void CoralSynthAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, ju
             auto& osc2Pitch = *apvts.getRawParameterValue("OSC2PITCH");
             auto& noise = *apvts.getRawParameterValue("NOISE");
             auto& drift = *apvts.getRawParameterValue("DRIFT");
+            auto& chorus = *apvts.getRawParameterValue("CHORUS");
+            auto& rate = *apvts.getRawParameterValue("RATE");
+            auto& depth = *apvts.getRawParameterValue("DEPTH");
+            auto& feedback = *apvts.getRawParameterValue("FEEDBACK");
+            auto& mix = *apvts.getRawParameterValue("MIX");
+            auto& centreDelay = *apvts.getRawParameterValue("CENTREDELAY");
+           
+            
+
 
             auto& osc1 = voice->getOscillator1();
             auto& osc2 = voice->getOscillator2();
@@ -197,12 +206,23 @@ void CoralSynthAudioProcessor::processBlock(juce::AudioBuffer<float>& buffer, ju
             osc1.setDrift(drift);
             osc1.setGain(osc1Gain);
             osc1.setPitchVal(osc1Pitch);
-
+            osc1.setChorus(chorus);
+            osc1.setRate(rate);
+            osc1.setDepth(depth);
+            osc1.setFeedback(feedback);
+            osc1.setMix(mix);
+            osc1.setCentreDelay(centreDelay);
 
             osc2.setType(osc2Choice);
             osc2.setGain(osc2Gain);
             osc2.setPitchVal(osc2Pitch);
-
+            osc2.setChorus(chorus);
+            osc2.setRate(rate);
+            osc2.setDepth(depth);
+            osc2.setFeedback(feedback);
+            osc2.setMix(mix);
+            osc2.setCentreDelay(centreDelay);
+            
 
 
             adsr.update(attack.load(), decay.load(), sustain.load(), release.load());
@@ -252,8 +272,8 @@ juce::AudioProcessorValueTreeState::ParameterLayout CoralSynthAudioProcessor::cr
 {
     std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
 
-    params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC1", "Oscillator 1", juce::StringArray{ "Sine", "Saw", "Square" }, 0));
-    params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC2", "Oscillator 2", juce::StringArray{ "Sine", "Saw", "Square" }, 0));
+    params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC1", "Oscillator 1", juce::StringArray{ "Sine", "Saw", "Square", "Triangle"}, 0));
+    params.push_back(std::make_unique<juce::AudioParameterChoice>("OSC2", "Oscillator 2", juce::StringArray{ "Sine", "Saw", "Square", "Triangle"}, 0));
 
     // OSC Gain
     params.push_back(std::make_unique<juce::AudioParameterFloat>("OSC1GAIN", "Oscillator 1 Gain", juce::NormalisableRange<float> { -40.0f, 0.2f, 0.1f, }, 0.1f, "dB"));
@@ -273,8 +293,25 @@ juce::AudioProcessorValueTreeState::ParameterLayout CoralSynthAudioProcessor::cr
     params.push_back(std::make_unique<juce::AudioParameterFloat>("NOISE", "Noise", juce::NormalisableRange<float> {0.0f, 0.1f, 0.01f,}, 0.0f));
 
     // DRIFT??
-    params.push_back(std::make_unique<juce::AudioParameterFloat>("DRIFT", "Drift", juce::NormalisableRange<float> {0.0f, 1.0f, 0.01f,}, 0.0f));
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("DRIFT", "Drift", juce::NormalisableRange<float> {0.0f, 3.0f, 0.01f,}, 0.0f));
 
+    // CHORUS
+    params.push_back(std::make_unique<juce::AudioParameterBool>("CHORUS", "Chorus", false));
+
+    // RATE
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("RATE", "Rate", juce::NormalisableRange<float> { 0.0f, 100.0f, 1.0f, }, 1.0f));
+
+    // DEPTH
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("DEPTH", "Depth", juce::NormalisableRange<float> { 0.0f, 1.0f, 0.01f, }, 0.0f));
+
+    // FEEDBACK
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("FEEDBACK", "Feedback", juce::NormalisableRange<float> { -1.0f, 1.0f, 0.01f, }, 0.0f));
+
+    // MIX
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("MIX", "Mix", juce::NormalisableRange<float> { 0.0f, 1.0f, 0.01f, }, 0.0f));
+
+    // CENTRE DELAY
+    params.push_back(std::make_unique<juce::AudioParameterFloat>("CENTREDELAY", "CentreDelay", juce::NormalisableRange<float> { 1.0f, 100.0f, 1.0f, }, 1.0f));
 
     return { params.begin(), params.end() };
 }

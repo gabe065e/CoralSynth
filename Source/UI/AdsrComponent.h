@@ -30,8 +30,13 @@ private:
     juce::Slider noiseSlider;
     juce::Slider driftSlider;
 
+
+
     juce::Label driftLabel{ "Drift", "Drift" };
     juce::Label noiseLabel{ "Noise", "Noise" };
+
+    juce::ToggleButton chorusButton;
+
 
 
     using SliderAttachment = juce::AudioProcessorValueTreeState::SliderAttachment;
@@ -42,6 +47,10 @@ private:
     std::unique_ptr<SliderAttachment> releaseAttachment;
     std::unique_ptr<SliderAttachment> noiseAttachment;
     std::unique_ptr<SliderAttachment> driftAttachment;
+
+    
+    
+    std::unique_ptr<juce::AudioProcessorValueTreeState::ButtonAttachment> chorusAttachment;
 
     JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(AdsrComponent)
 };

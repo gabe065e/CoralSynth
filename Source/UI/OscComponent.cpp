@@ -14,7 +14,7 @@
 //==============================================================================
 OscComponent::OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::String oscId, juce::String gainId, juce::String pitchId)
 {
-    juce::StringArray oscChoices{ "Sine", "Saw", "Square" };
+    juce::StringArray oscChoices{ "Sine", "Saw", "Square", "Triangle"};
     oscSelector.addItemList(oscChoices, 1);
     oscSelector.setSelectedItemIndex(0);
 
@@ -25,17 +25,10 @@ OscComponent::OscComponent(juce::AudioProcessorValueTreeState& apvts, juce::Stri
     waveSelectorLabel.setJustificationType(juce::Justification::centred);
     addAndMakeVisible(waveSelectorLabel);
 
+    setSliderParams(gainSlider);
+    setSliderParams(pitchSlider);
 
-
-    gainSlider.setSliderStyle(juce::Slider::SliderStyle::LinearVertical);
-    gainSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 25);
-    gainSlider.setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::black);
-    addAndMakeVisible(gainSlider);
-
-    pitchSlider.setSliderStyle(juce::Slider::SliderStyle::Rotary);
-    pitchSlider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 25);
-    pitchSlider.setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::black);
-    addAndMakeVisible(pitchSlider);
+    
 
     oscSelAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ComboBoxAttachment>(apvts, oscId, oscSelector);
 
@@ -69,4 +62,11 @@ void OscComponent::resized()
     gainSlider.setBounds(120, 0, 90, bounds.getHeight() );
     pitchSlider.setBounds(200, 0, 90, bounds.getHeight());
     waveSelectorLabel.setBounds(10, startY - labelYOffset, 90, labelHeight);
+}
+
+void OscComponent::setSliderParams(juce::Slider& slider) {
+    slider.setSliderStyle(juce::Slider::SliderStyle::Rotary);
+    slider.setTextBoxStyle(juce::Slider::TextBoxBelow, false, 50, 25);
+    slider.setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::black);
+    addAndMakeVisible(slider);
 }

@@ -12,17 +12,17 @@
 
 //==============================================================================
 CoralSynthAudioProcessorEditor::CoralSynthAudioProcessorEditor(CoralSynthAudioProcessor& p)
-    : AudioProcessorEditor(&p), audioProcessor(p), osc1(audioProcessor.apvts, "OSC1", "OSC1GAIN", "OSC1PITCH"), osc2(audioProcessor.apvts, "OSC2", "OSC2GAIN", "OSC2PITCH"), adsr(audioProcessor.apvts)
+    : AudioProcessorEditor(&p), audioProcessor(p), osc1(audioProcessor.apvts, "OSC1", "OSC1GAIN", "OSC1PITCH"), osc2(audioProcessor.apvts, "OSC2", "OSC2GAIN", "OSC2PITCH"), adsr(audioProcessor.apvts), chorus(audioProcessor.apvts)
+
 {
     // Make sure that before the constructor has finished, you've set the
     // editor's size to whatever you need it to be.
     setSize(600, 500);
         
-
-    addAndMakeVisible(adsr);
     addAndMakeVisible(osc1);
     addAndMakeVisible(osc2);
-   // THE GRANDMAMA THE BABY
+    addAndMakeVisible(adsr);
+    addAndMakeVisible(chorus);
 
 
 
@@ -47,7 +47,8 @@ void CoralSynthAudioProcessorEditor::resized()
     
     osc1.setBounds(0, 25, getWidth() / 2, 100);
     osc2.setBounds(getWidth() / 2, 25, getWidth() / 2, 100);
-    adsr.setBounds(0, 125, getWidth(), getHeight() - 125);
+    adsr.setBounds(0, 125, getWidth(), getHeight() / 2);
+    chorus.setBounds(0, 125 + getHeight() / 2 + 5, getWidth(), ((getHeight() - 100) - getHeight() / 2)-20);
     // This is generally where you'll want to lay out the positions of any
     // subcomponents in your editor..
 }

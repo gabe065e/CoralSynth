@@ -24,10 +24,19 @@ public:
     void setDrift(const float drift);
     void setFreqInHertz(const float freqInHertz);
     void setSinState(float sinState);
+    void setChorus(bool chorus);
+    void setCentreDelay(float centreDelay);
+    void setDepth(float depth);
+    void setRate(float rate);
+    void setFeedback(float feedback);
+    void setMix(float mix);
     float getSinState();
-    float lfoSin();
+    
+
 
 private:
+
+    juce::dsp::Chorus<float> chorus;
 
     float samplesPerSec = 0.0f;
     float driftNum = 0.0f;
@@ -35,6 +44,7 @@ private:
     int pitchVal{ 0 };
     int lastMidiNote{ 0 };
     float sinState = 0.0f;
+    bool chorusOn = false;
 
 
 };

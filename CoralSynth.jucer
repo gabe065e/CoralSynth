@@ -19,6 +19,10 @@
         <FILE id="EwkqEp" name="AdsrComponent.cpp" compile="1" resource="0"
               file="Source/UI/AdsrComponent.cpp"/>
         <FILE id="i91O6Z" name="AdsrComponent.h" compile="0" resource="0" file="Source/UI/AdsrComponent.h"/>
+        <FILE id="jeCNyU" name="ChorusComponent.cpp" compile="1" resource="0"
+              file="Source/UI/ChorusComponent.cpp"/>
+        <FILE id="bYgbKf" name="ChorusComponent.h" compile="0" resource="0"
+              file="Source/UI/ChorusComponent.h"/>
         <FILE id="StKWFG" name="OscComponent.cpp" compile="1" resource="0"
               file="Source/UI/OscComponent.cpp"/>
         <FILE id="vlENuP" name="OscComponent.h" compile="0" resource="0" file="Source/UI/OscComponent.h"/>

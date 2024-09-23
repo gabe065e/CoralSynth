@@ -24,6 +24,9 @@ AdsrComponent::AdsrComponent(juce::AudioProcessorValueTreeState& apvts)
     releaseAttachment = std::make_unique<SliderAttachment>(apvts, "RELEASE", releaseSlider);
     noiseAttachment = std::make_unique<SliderAttachment>(apvts, "NOISE", noiseSlider);
     driftAttachment = std::make_unique<SliderAttachment>(apvts, "DRIFT", driftSlider);
+    chorusAttachment = std::make_unique<juce::AudioProcessorValueTreeState::ButtonAttachment>(apvts, "CHORUS", chorusButton);
+
+
 
     setSliderParams(attackSlider);
     setSliderParams(decaySlider);
@@ -32,6 +35,10 @@ AdsrComponent::AdsrComponent(juce::AudioProcessorValueTreeState& apvts)
 
     setSliderParamsVariant(noiseSlider);
     setSliderParamsVariant(driftSlider);
+
+    chorusButton.setButtonText("Chorus");
+    addAndMakeVisible(chorusButton);
+
 
     driftLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colours::white);
     driftLabel.setFont(15.0f);
@@ -71,15 +78,21 @@ void AdsrComponent::resized()
     const auto sliderStartX = 100;
     const auto sliderStartY = 0;
     const auto labelOffset = 70;
-    attackSlider.setBounds(sliderStartX, sliderStartY, sliderWidth, sliderHeight);
 
+    attackSlider.setBounds(sliderStartX, sliderStartY, sliderWidth, sliderHeight);
     decaySlider.setBounds(attackSlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
     sustainSlider.setBounds(decaySlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
     releaseSlider.setBounds(sustainSlider.getRight() + padding, sliderStartY, sliderWidth, sliderHeight);
+
     noiseSlider.setBounds(20, 30, sliderWidth - 30, sliderHeight / 3);
     driftSlider.setBounds(20, sliderHeight / 3 + 55, sliderWidth - 30, sliderHeight / 3);
-    driftLabel.setBounds(30, sliderHeight / 3 + (125), sliderWidth, sliderHeight / 3);
-    noiseLabel.setBounds(30, sliderHeight / 3 - 20, sliderWidth, sliderHeight / 3);
+
+    driftLabel.setBounds(30, sliderHeight / 3 + (165), sliderWidth, 30);
+    noiseLabel.setBounds(30, sliderHeight / 3 + 25, sliderWidth, 30);
+
+    chorusButton.setBounds(0, sliderHeight / 3 + 120, sliderWidth, 30);
+    
+
 
 
     // This method is where you should set the bounds of any child
@@ -106,8 +119,9 @@ void AdsrComponent::setSliderParamsVariant(juce::Slider& slider)
 
 void AdsrComponent::setRotaryParams(juce::Slider& slider)
 {
-    slider.setSliderStyle(juce::Slider::SliderStyle::Rotary);
+    slider.setSliderStyle(juce::Slider::SliderStyle::RotaryHorizontalDrag);
     slider.setTextBoxStyle(juce::Slider::TextBoxBelow, true, 50, 25);
+    slider.setColour(juce::Slider::textBoxOutlineColourId, juce::Colours::white);
     addAndMakeVisible(slider);
 
 }
