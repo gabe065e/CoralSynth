@@ -37,7 +37,7 @@ AdsrComponent::AdsrComponent(juce::AudioProcessorValueTreeState& apvts)
     setSliderParamsVariant(driftSlider);
 
     chorusButton.setButtonText("Chorus");
-    addAndMakeVisible(chorusButton);
+  //  addAndMakeVisible(chorusButton);
 
 
     driftLabel.setColour(juce::Label::ColourIds::textColourId, juce::Colours::white);
@@ -87,7 +87,7 @@ void AdsrComponent::resized()
     noiseSlider.setBounds(20, 30, sliderWidth - 30, sliderHeight / 3);
     driftSlider.setBounds(20, sliderHeight / 3 + 55, sliderWidth - 30, sliderHeight / 3);
 
-    driftLabel.setBounds(30, sliderHeight / 3 + (165), sliderWidth, 30);
+    driftLabel.setBounds(30, sliderHeight / 3 + (125), sliderWidth, 30);
     noiseLabel.setBounds(30, sliderHeight / 3 + 25, sliderWidth, 30);
 
     chorusButton.setBounds(0, sliderHeight / 3 + 120, sliderWidth, 30);
