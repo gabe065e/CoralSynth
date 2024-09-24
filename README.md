@@ -1,4 +1,5 @@
-![alt text](https://github.com/gabe065e/CoralSynth/blob/main/demo.png)
+![alt text](https://github.com/gabe065e/CoralSynth/blob/main/coral.png)
+
 
 
 This dual oscillator synth has traditional ADSR functionality, as well as gain, noise, and pitch sliders.
